@@ -114,7 +114,7 @@ void adminMode() {
                 std::cout « "Неверный выбор" « std::endl;
             }
         } catch (const std::exception& e) {
-            std::cout « "Ошибка: " « e.what() « std::endl
+            std::cout « "Ошибка: " « e.what() « std::endl;
         }
     }
 }
