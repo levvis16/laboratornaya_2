@@ -22,14 +22,14 @@ void adminMode() {
     
     int choice;
     while (true) {
-        std::cout « "\n--- Администратор ---" « std::endl;
-        std::cout « "1. Добавить студента" « std::endl;
-        std::cout « "2. Добавить преподавателя" « std::endl;
-        std::cout « "3. Просмотреть всех студентов" « std::endl;
-        std::cout « "4. Просмотреть всех преподавателей" « std::endl;
-        std::cout « "5. Выйти" « std::endl;
-        std::cout « "Выбор: ";
-        std::cin » choice;
+        std::cout << "\n--- Администратор ---"<< std::endl;
+        std::cout << "1. Добавить студента" << std::endl;
+        std::cout << "2. Добавить преподавателя" << std::endl;
+        std::cout << "3. Просмотреть всех студентов" << std::endl;
+        std::cout << "4. Просмотреть всех преподавателей" << std::endl;
+        std::cout << "5. Выйти" << std::endl;
+        std::cout << "Выбор: ";
+        std::cin >> choice;
         
         if (choice == 5) break;
         
@@ -38,14 +38,14 @@ void adminMode() {
             
             if (choice == 1) {
                 std::string name, group, login, password;
-                std::cout « "ФИО: ";
+                std::cout << "ФИО: ";
                 std::cin.ignore();
                 std::getline(std::cin, name);
-                std::cout « "Группа: ";
+                std::cout << "Группа: ";
                 std::getline(std::cin, group);
-                std::cout « "Логин: ";
+                std::cout << "Логин: ";
                 std::getline(std::cin, login);
-                std::cout « "Пароль: ";
+                std::cout << "Пароль: ";
                 std::getline(std::cin, password);
                 
                 pqxx::work txn(*conn);
@@ -53,20 +53,20 @@ void adminMode() {
                                   name + "', '" + group + "', '" + login + "', '" + password + "')";
                 txn.exec(sql);
                 txn.commit();
-                std::cout « "Студент добавлен" « std::endl;
+                std::cout << "Студент добавлен" « std::endl;
             }
             else if (choice == 2) {
                 std::string name, subject, group, login, password;
-                std::cout « "ФИО: ";
+                std::cout << "ФИО: ";
                 std::cin.ignore();
                 std::getline(std::cin, name);
-                std::cout « "Предмет: ";
+                std::cout << "Предмет: ";
                 std::getline(std::cin, subject);
-                std::cout « "Группа: ";
+                std::cout << "Группа: ";
                 std::getline(std::cin, group);
-                std::cout « "Логин: ";
+                std::cout << "Логин: ";
                 std::getline(std::cin, login);
-                std::cout « "Пароль: ";
+                std::cout << "Пароль: ";
                 std::getline(std::cin, password);
                 
                 pqxx::work txn(*conn);
@@ -74,7 +74,7 @@ void adminMode() {
                                   name + "', '" + subject + "', '" + group + "', '" + login + "', '" + password + "')";
                 txn.exec(sql);
                 txn.commit();
-                std::cout « "Преподаватель добавлен" « std::endl;
+                std::cout << "Преподаватель добавлен" << std::endl;
             }
             else if (choice == 3) {
                 pqxx::work txn(*conn);
@@ -82,13 +82,13 @@ void adminMode() {
                 txn.commit();
                 
                 if (r.size() == 0) {
-                    std::cout « "Студентов нет" « std::endl;
+                    std::cout << "Студентов нет" << std::endl;
                 } else {
-                    std::cout « "ID | ФИО | Группа" « std::endl;
+                    std::cout << "ID | ФИО | Группа" << std::endl;
                     for (int i = 0; i < r.size(); i++) {
-                        std::cout « r[i][0].as<int>() « " | " 
-                                  « r[i][1].as<std::string>() « " | " 
-                                  « r[i][2].as<std::string>() « std::endl;
+                        std::cout << r[i][0].as<int>() << " | " 
+                                  << r[i][1].as<std::string>() << " | " 
+                                  << r[i][2].as<std::string>() << std::endl;
                     }
                 }
             }
@@ -98,23 +98,23 @@ void adminMode() {
                 txn.commit();
                 
                 if (r.size() == 0) {
-                    std::cout « "Преподавателей нет" « std::endl;
+                    std::cout << "Преподавателей нет" << std::endl;
                       }
                 else {
-                  std::cout « "ID | ФИО | Предмет | Группа" « std::endl;
+                  std::cout << "ID | ФИО | Предмет | Группа" << std::endl;
                     for (int i = 0; i < r.size(); i++) {
-                        std::cout « r[i][0].as<int>() « " | " 
-                                  « r[i][1].as<std::string>() « " | " 
-                                  « r[i][2].as<std::string>() « " | "
-                                  « r[i][3].as<std::string>() « std::endl;
+                        std::cout << r[i][0].as<int>() << " | " 
+                                  << r[i][1].as<std::string>() << " | " 
+                                  << r[i][2].as<std::string>() << " | "
+                                  << r[i][3].as<std::string>() << std::endl;
                     }
                 }
             }
                 else {
-                std::cout « "Неверный выбор" « std::endl;
+                std::cout << "Неверный выбор" << std::endl;
             }
         } catch (const std::exception& e) {
-            std::cout « "Ошибка: " « e.what() « std::endl;
+            std::cout << "Ошибка: " « e.what() << std::endl;
         }
     }
 }
