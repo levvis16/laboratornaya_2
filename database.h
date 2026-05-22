@@ -11,10 +11,6 @@
  * @brief Класс для работы с базой данных PostgreSQL
  */
 
-/**
- * @class Database
- * @brief Управляет подключением к БД и проверкой пользователей
- */
 
 class Database {
 private:
@@ -22,15 +18,7 @@ private:
     std::string adminSecret;
     
 public:
-    /**
-     * @brief Конструктор. Загружает секрет из .env и подключается к БД
-     */
     Database() {
-            /**
-             * @brief Деструктор
-             * 
-             * Закрывает соединение с базой данных
-             */
         std::string dbname = "distance_system";
         std::string user = "postgres";
         std::string password = "Htmlpagelev_2007";
@@ -55,28 +43,30 @@ public:
         delete conn;
     }
     /**
+             * @brief Деструктор
+             * 
+             * Закрывает соединение с базой данных
+             */
+    
+    pqxx::connection* getConnection() {
+        return conn;
+    }
+    /**
      * @brief Получить указатель на соединение
      * @return pqxx::connection* 
      */
-    pqxx::connection* getConnection() {
-        return conn;
+    
+    
+    bool checkAdmin(std::string secret)
+    
+    {
+        return secret == adminSecret;
     }
     /**
      * @brief Проверка секретного ключа администратора
      * @param secret Секретный ключ, введенный пользователем
      * @return true если ключ совпадает с SECRET_NAME из .env, иначе false
      */
-    bool checkAdmin(std::string secret)
-        /**
-     * @brief Авторизация преподавателя
-     * @param login Логин
-     * @param password Пароль
-     * @return true если такой преподаватель существует в БД
-     */
-    {
-        return secret == adminSecret;
-    }
-    
     bool verifyTeacher(std::string login, std::string password) {
         try {
             pqxx::work txn(*conn);
@@ -88,7 +78,12 @@ public:
             return false;
         }
     }
-    
+        /**
+     * @brief Авторизация преподавателя
+     * @param login Логин
+     * @param password Пароль
+     * @return true если такой преподаватель существует в БД
+     */
     bool verifyStudent(std::string login, std::string password) {
         try {
             pqxx::work txn(*conn);
@@ -151,3 +146,8 @@ public:
 };
 
 #endif
+
+/**
+ * @class Database
+ * @brief Управляет подключением к БД и проверкой пользователей
+ */

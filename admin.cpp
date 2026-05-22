@@ -7,18 +7,10 @@
  * @brief Реализация режима администратора
  */
 
-/**
- * @brief Главная функция режима администратора
- * 
- * Проверяет секретный ключ через Database::checkAdmin(),
- * затем в цикле показывает меню: добавление студента,
- * добавление преподавателя, просмотр списков.
- */
-
 void adminMode() {
     Database db;
     
-    std::cout « "Режим администратора" « std::endl;
+    std::cout << "Режим администратора" << std::endl;
     
     int choice;
     while (true) {
@@ -53,7 +45,7 @@ void adminMode() {
                                   name + "', '" + group + "', '" + login + "', '" + password + "')";
                 txn.exec(sql);
                 txn.commit();
-                std::cout << "Студент добавлен" « std::endl;
+                std::cout << "Студент добавлен" << std::endl;
             }
             else if (choice == 2) {
                 std::string name, subject, group, login, password;
@@ -114,7 +106,15 @@ void adminMode() {
                 std::cout << "Неверный выбор" << std::endl;
             }
         } catch (const std::exception& e) {
-            std::cout << "Ошибка: " « e.what() << std::endl;
+            std::cout << "Ошибка: " << e.what() << std::endl;
         }
     }
 }
+
+/**
+ * @brief Главная функция режима администратора
+ * 
+ * Проверяет секретный ключ через Database::checkAdmin(),
+ * затем в цикле показывает меню: добавление студента,
+ * добавление преподавателя, просмотр списков.
+ */
